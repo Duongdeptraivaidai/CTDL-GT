@@ -211,3 +211,215 @@ do {
 }
 
 ```
+#5.2
+```c
+#include<iostream>
+#include<string>
+#include<fstream>
+#include<conio.h>
+using namespace std;
+
+ void Swap(int& a, int& b) {
+	int temp = a;
+	a = b;
+	b = temp;
+}
+ void Swap1(string& a, string& b) {
+	string temp = a;	
+	a = b;
+	b = temp;
+}
+
+ struct BAIHAT {
+	string ten;
+	int view,nam;
+};   
+
+ void xuat(BAIHAT a[], int n) {
+	for (int i = 0; i < n; i++) {
+		cout << "Sinh vien thu " << i + 1 << endl;
+		cout << "Nam phat hanh: " << a[i].nam << endl; //nam phat hanh mssv
+		cout << "View: " << a[i].view << endl; //view dtoan
+	}
+}
+
+ void nhapFile(BAIHAT a[], int& n) {
+	ofstream file;
+	file.open("0306241102.txt", ios::app);
+	do {
+		cout << "Nhap so luong bai hat: ";
+		cin >> n;
+	} while (n <= 0);
+	for (int i = 0; i < n; i++) {
+		cout << "Nhap bai hat thu " << i + 1 << endl;
+		cin.ignore();
+		cout << "Nhap ten bai hat: ";
+		getline(cin, a[i].ten);
+		cin.ignore();
+		do {
+			cout << "Nhap nam phat hanh: ";
+			cin >> a[i].nam;
+			cin.ignore();
+		} while (a[i].nam < 1);
+		do {
+			cout << "Nhap diem toan: ";
+			cin >> a[i].view;
+			cin.ignore();
+		} while (a[i].view <= 0);
+		file << "Ten bai hat: " << a[i].ten << endl;
+		file << "Nam phat hanh: " << a[i].nam << endl;
+		file << "view: " << a[i].view << endl;
+	}
+	file.close();
+
+
+}
+
+
+
+ void docFile(BAIHAT a[], int& n) {
+	ifstream file;
+	string s;
+	file.open("0306241102.txt");
+	n = 0;
+	while (file) {
+		getline(file, a[n].ten);
+		cout << a[n].ten<< endl;
+		file >> a[n].nam;
+		file >> a[n].view;
+		file.ignore();
+		getline(file, s);
+		n++;
+
+	}
+	n--;
+	file.close();
+
+}
+
+int SearchMaxView(BAIHAT a[], int &n) {
+	int max = a[0].view;
+	int vt = 0;
+	for (int i = 0; i < n; i++) {
+		if (a[i].view > max) {
+			max = a[i].view;
+			vt = i;
+		}
+	}
+	return vt;
+ }
+
+int SearchMinView(BAIHAT a[], int &n) {
+	int min = a[0].view;
+	int vt = 0;
+	for (int i = 0; i < n; i++) {
+		if (a[i].view <  min) {
+			min = a[i].view;
+			vt = i;
+		}
+	}
+	cout << "Bai Hat co so View cao nhat la: ";
+	return vt;
+}
+
+ void SapXepTangDanNam(BAIHAT a[], int n) {
+	for (int i = 0; i < n - 1; i++) {
+		for (int j = i + 1; j < n; j++) {
+			if (a[i].nam > a[j].nam) {
+				Swap1(a[i].ten, a[j].ten);
+				Swap(a[i].nam, a[j].nam);
+				Swap(a[i].view, a[j].view);
+			}
+		}
+	}
+}
+
+ void SapXepGiamDanView(BAIHAT a[], int n) {
+	for (int i = 0; i < n - 1; i++) {
+		for (int j = i + 1; j < n; j++) {
+			if (a[i].view < a[j].view) {
+				Swap1(a[i].ten, a[j].ten);
+				Swap(a[i].nam, a[j].nam);
+				Swap(a[i].view, a[j].view);
+				
+			}
+		}
+	}
+}
+
+int SearchByName(BAIHAT a[], int n, string name) {
+	for (int i = 0; i < n; i++) {
+		if (a[i].ten == name) {  // Nếu tên bài hát khớp
+			return i;  // Trả về chỉ mục của bài hát
+		}
+	}
+	return -1;  //neu khong tim thay
+}
+
+
+
+
+
+int main() {
+	BAIHAT a[100];
+	int n;
+	int chose;
+	int minIndex = SearchMinView(a, n);
+	int maxIndex = SearchMaxView(a, n);
+	int x;
+	
+	do {
+		cout << "1. Nhap file" << endl;
+		cout << "2. Doc file" << endl;
+		cout << "3. Tim bai hat co luot view cao nhat: " << endl;
+		cout << "4. Tim bai hat co luot view thap nhat:" << endl;
+		cout << "5. Tim bai hat theo ten nhap vao:  " << endl;
+		cout << "6. Sap xep tang dan theo Nam phat hanh:  " << endl;
+		cout << "7. Sap xep gian dan theo So luot View" << endl;
+		cout << "8. Nhan ESC de thoat!" << endl;
+
+		cout << "Chon: ";
+		cin >> chose;
+		string x;
+		switch(chose) 
+		{
+			case 1:nhapFile(a, n); break;
+			case 2:docFile(a, n); break;
+			case 3:  // Tìm chỉ mục của bài hát có view cao nhất
+				cout << "Bai hat co so luong view cao nhat:" << endl;
+				cout << "Ten bai hat: " << a[maxIndex].ten << endl;
+				cout << "Nam phat hanh: " << a[maxIndex].nam << endl;
+				cout << "View: " << a[maxIndex].view << endl; break;
+
+			case 4: // Tìm bài hát có view thấp nhất
+				cout << "Bai hat co so luong view thap nhat:" << endl;
+				cout << "Ten bai hat: " << a[minIndex].ten << endl;
+				cout << "Nam phat hanh: " << a[minIndex].nam << endl;
+				cout << "View: " << a[minIndex].view << endl; break;
+
+			case 5: {
+				cin.ignore();  // Để bỏ qua ký tự '\n' còn lại trong bộ đệm sau khi nhập chon
+				cout << "Nhap ten bai hat can tim: ";
+				getline(cin, x);  // Nhập tên bài hát
+				int index = SearchByName(a, n, x);  // Tìm bài hát theo tên
+				if (index != -1) {
+					// Nếu tìm thấy bài hát
+					cout << "Bai hat tim duoc:" << endl;
+					cout << "Ten bai hat: " << a[index].ten << endl;
+					cout << "Nam phat hanh: " << a[index].nam << endl;
+					cout << "View: " << a[index].view << endl;
+				}
+				else {
+					cout << "Khong tim thay bai hat voi ten '" << x << "'!" << endl;
+				}
+			}break;
+
+			case 6:SapXepTangDanNam(a, n); xuat(a, n); break;
+			case 7:SapXepGiamDanView(a, n); xuat(a, n); break;
+		}
+	
+
+	} while (_getch()!=27);
+
+}
+```
