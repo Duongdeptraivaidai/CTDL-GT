@@ -729,11 +729,30 @@ void sapXepSVgiamdan(LIST_SV& l) {
         }
         p = p->pNext;
     }
+}
 
-
-
-
-
+void InsertOrdered_SV(LIST_SV& l, SINHVIEN x) {
+    NODE_SV* p = new NODE_SV;  
+    p->info = x;  
+    p->pNext = NULL;
+    if (l.pHead == NULL) {
+        l.pHead = l.pTail = p;
+        return;
+    }
+    if (p->info.diem >= l.pHead->info.diem) {
+        p->pNext = l.pHead;
+        l.pHead = p;
+        return;
+    }
+    NODE_SV* q = l.pHead;
+    while (q->pNext != NULL && q->pNext->info.diem > p->info.diem) {
+        q = q->pNext;
+    }
+    p->pNext = q->pNext;
+    q->pNext = p;
+    if (p->pNext == NULL) {
+        l.pTail = p;
+    }
 }
 
 int main() {
