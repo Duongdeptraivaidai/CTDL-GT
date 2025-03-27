@@ -1,4 +1,4 @@
-####1.1
+#### 1.1
 ```c
 #include<iostream>
 #include<conio.h>
@@ -73,7 +73,7 @@ void main() {
 	} while (_getch() != 27);
 }
 ```
-####.2
+#### .2
 ```c
 #include<iostream>
 #include<fstream>
@@ -136,7 +136,7 @@ int main() {
 	_getch(); 
 }
 ```
-####1.3 (chua xong)
+#### 1.3 (chua xong)
 ```c
 #include<iostream>
 #include<conio.h>
@@ -211,7 +211,7 @@ do {
 }
 
 ```
-#5.2
+#### 5.2
 ```c
 #include<iostream>
 #include<string>
@@ -585,7 +585,7 @@ int main() {
 
 }
 ```
-####BAI THUC  HANH SO 8
+#### BAI THUC  HANH SO 8
 ```c
 
 ```
