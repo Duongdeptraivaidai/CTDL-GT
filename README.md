@@ -739,17 +739,25 @@ void InsertOrdered_SV(LIST_SV& l, SINHVIEN x) {
         l.pHead = l.pTail = p;
         return;
     }
+
+    //nếu điểm sinh viên mới >= điểm sinh viên đầu tiên
     if (p->info.diem >= l.pHead->info.diem) {
         p->pNext = l.pHead;
         l.pHead = p;
         return;
     }
+
+    //thêm vào giữa hoặc cuối danh sách
     NODE_SV* q = l.pHead;
     while (q->pNext != NULL && q->pNext->info.diem > p->info.diem) {
         q = q->pNext;
     }
+
+    //chèn vào đúng vị trí
     p->pNext = q->pNext;
     q->pNext = p;
+
+    //nếu thêm vào cuối danh sách thì cập nhật lại pTail
     if (p->pNext == NULL) {
         l.pTail = p;
     }
