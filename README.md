@@ -587,5 +587,187 @@ int main() {
 ```
 #### BAI THUC  HANH SO 8
 ```c
+#include<iostream>
+#include<string>
+#include<iomanip>
+using namespace std;
+void Swap(string& a, string& b) {
+    string temp = b;
+    b = a;
+    a = temp;
+}
+
+void Swap1(int& a, int& b) {
+    int temp = b;
+    b = a;
+    a = temp;
+}
+
+struct SINHVIEN {
+    string mssv, note;
+    int diem;
+};
+
+struct NODE_SV {
+    SINHVIEN info;
+    NODE_SV* pNext;
+};
+
+struct LIST_SV {
+    NODE_SV* pHead;
+    NODE_SV* pTail;
+};
+
+void init_SV(LIST_SV& l) {
+    l.pHead = l.pTail = NULL;
+}
+
+NODE_SV* getnode_SV() {
+    NODE_SV* p = new NODE_SV;
+    if (p == NULL) {
+        cout << "Ko du bo nho!" << endl;
+        return p;
+    }
+
+   
+    cout << "Nhap msvv: ";
+    getline(cin, p->info.mssv);
+    cout << "Nhap diem (0-10): ";
+    cin >> p->info.diem;
+    cin.ignore(); 
+    cout << "Nhap ghi chu: ";
+    getline(cin, p->info.note);
+
+    p->pNext = NULL;
+    return p;
+}
+
+void InsertHead_SV(LIST_SV& l, SINHVIEN x) {
+    NODE_SV* p = getnode_SV();
+    if (p != NULL) {
+        if (l.pHead == NULL) {
+            l.pHead = l.pTail = p;
+        }
+        else {
+            p->pNext = l.pHead;
+            l.pHead = p;
+        }
+    }
+}
+
+void XuatDSLK(LIST_SV l) {
+    NODE_SV* p = l.pHead;
+    while (p != NULL) {
+        cout << "\t" << p->info.mssv << "\t" << p->info.diem << "\t" << p->info.note << endl;
+        p = p->pNext;
+    }
+}
+
+void sprinsv(LIST_SV& l) {
+    NODE_SV* p = l.pHead;
+    bool found = false;
+    while (p != NULL) {
+        if (p->info.diem >= 8) {
+            cout << "\t" << p->info.mssv << "\t" << p->info.diem << "\t" << p->info.note << endl;
+            found = true;
+        }
+        p = p->pNext;
+    }
+    if (!found) {
+        cout << "Khong co sinh vien nao diem tren 8!" << endl;
+    }
+}
+NODE_SV* Search(LIST_SV& l, string k) {
+    NODE_SV* p = l.pHead;
+    while (p != NULL) {
+        if (p->info.mssv == k) {
+            cout << "\t" << p->info.mssv << "\t" << p->info.diem << "\t" << p->info.note << endl;
+        }
+        p = p->pNext;
+    }
+    return NULL;  
+}
+
+void removeSV(LIST_SV& l) {
+    NODE_SV* p = l.pHead;
+    NODE_SV* q = NULL;
+    while (p != NULL) {
+        if (p->info.diem < 2) {
+            if (q == NULL) {
+                l.pHead = p->pNext;
+                delete p;
+                p = l.pHead;
+            }
+            else {
+                q->pNext = p->pNext;
+                delete p;
+                p = q->pNext;
+            }
+        }
+        else {
+            q = p;
+            p = p->pNext;
+        }
+    }
+}
+
+void sapXepSVgiamdan(LIST_SV& l) {
+    NODE_SV* max;
+    NODE_SV* q, * p;
+    p = l.pHead;
+    while (p != NULL) {
+        max = p;
+        q = p->pNext;
+        while (q != NULL) {
+            if (q->info.diem > max->info.diem)max = q;
+            q = q->pNext;
+        }
+        if (max != p) {
+            Swap(p->info.mssv, max->info.mssv);
+            Swap1(p->info.diem, max->info.diem);
+            Swap(p->info.note, max->info.note);
+        }
+        p = p->pNext;
+    }
+
+
+
+
+
+}
+
+int main() {
+    SINHVIEN info;
+    LIST_SV l;
+    int x;
+    l.pHead = l.pTail = NULL;
+    string k;
+
+    cout << "Nhap noi dung nut, nhap 0 de dung: ";
+    cin >> x;
+    cin.ignore(); 
+
+    while (x != 0) {
+       
+        InsertHead_SV(l, info);
+
+        cout << "Nhap noi dung nut, nhap 0 de dung: ";
+        cin >> x;
+        cin.ignore(); 
+    }
+    cout << "danh sach sinh vien vua nhap la: " << endl;
+    XuatDSLK(l);
+
+    /*cout << "sinh vien diem tren 8: " << endl;
+    sprinsv(l);*/
+
+
+   /* cout << "Tim sinh vien: " << endl;
+    cin >> k;
+    Search(l, k);*/
+
+    removeSV(l);
+}
+
 
 ```
