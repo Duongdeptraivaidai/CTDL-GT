@@ -423,3 +423,169 @@ int main() {
 
 }
 ```
+#### BAI THUC HANH SO 6
+```c
+#include<iostream>
+using namespace std;
+
+struct NODE {
+	int info;
+	NODE* pNext;
+};
+
+//khai bao dslk
+struct LIST {
+	NODE* pHead;
+	NODE* pTail;
+};
+
+//tao dsls rong
+void init(LIST& l) {
+	l.pHead = l.pTail = NULL;
+}
+
+//Khoi tao node
+NODE* getnode(int x) {
+	NODE* p = new NODE;
+	if (p == NULL) {
+		cout << "khong du bo nho!";
+		return p;
+	}
+	p->info = x;
+	p->pNext = NULL;
+	return p;
+}
+
+//Ham chen dau (dua 1 so vao dslk)
+void InsertHead(LIST& l, int x) {
+	NODE* p = getnode(x);
+	if(p != NULL) {
+		if (l.pHead == NULL) {
+			l.pHead = l.pTail = p;
+		}
+		else {
+			p->pNext = l.pHead;
+			l.pHead = p;
+		}
+	}
+}
+
+//Ham chen cuoi
+void InsertTail(LIST& l, int& x) {
+	NODE* p = getnode(x);
+	if (p != NULL) {
+		if (l.pHead == NULL) {
+			l.pHead = l.pTail = p;
+		}
+		else {
+			p->pNext = l.pTail;
+			l.pTail = p;
+		}
+	}
+}
+
+//Ham chen giua
+
+
+void XuatDSLK(LIST l) {
+	NODE* p = l.pHead;
+	while (p != NULL) {
+		cout << p->info << "\t";
+		p = p->pNext;
+	}
+}
+
+int tongDSLK(LIST l) {
+	int tong = 0;
+	NODE* p = l.pHead;
+	while (p != NULL) {
+		tong += p->info;
+		p = p->pNext;
+	}
+	return tong;
+}
+
+int demDSLK(LIST l) {
+	int count = 0;
+	NODE* p = l.pHead;
+	while (p != NULL) {
+		count++;
+		p = p->pNext;
+	}
+	return count;
+}
+
+bool ExistsInList(LIST& l, int x) {
+	NODE* p = l.pHead ;
+	while (p != NULL) {
+		if (p->info == x) {
+			return true;
+		}
+		p = p->pNext;
+	}
+	return false;
+}
+
+int SearchNumberMax(LIST l) {
+	int max = l.pHead->info; 
+	NODE* p = l.pHead->pNext; 
+	while (p != NULL) {
+		if (p->info > max) {
+			max = p->info; 
+		}
+		p = p->pNext;
+	}
+	return max;
+}
+
+bool CheckSoNT(int n) {
+	if (n <= 1) return false;  
+	for (int i = 2; i <= sqrt(n); ++i) {
+		if (n % i == 0) return false;  
+	}
+	return true; 
+}
+
+int CountsoNT(LIST l) {
+	int count = 0;
+	NODE* p = l.pHead;
+	while (p != NULL) {
+		if (CheckSoNT(p->info)) {
+			count++;  
+		}
+		p = p->pNext;
+	}
+	return count;
+}
+
+
+int main() {
+	LIST l;
+	int x;
+	l.pHead = l.pTail = NULL;
+	cout << "Nhap noi dung nut, nhap 0 de dung: "; cin >> x;
+	while (x != 0) {
+		InsertHead(l, x);
+		cout << "Nhap noi dung nut, nhap 0 de dung: "; cin >> x;
+	}
+	XuatDSLK(l); cout << endl;
+	cout << "tong cac phan tu trong danh sach: "<< tongDSLK(l) << endl;//tinh tong
+	cout << "so nut dem duoc la: " << demDSLK(l) << endl;//dem nut
+	cin >> x;// kiem tra
+	if (ExistsInList(l, x)) {
+		cout << "Gia tri " << x << " co" << endl;
+	}
+	else {
+		cout << "khong co" << endl;
+	}
+
+	cout << "phan tu lon nhat trong danh sach la: " << SearchNumberMax(l) << endl;//so lon nhat
+	cout << "So Nguyen To trong danh sach la: " << CountsoNT(l) << endl;
+	
+
+}
+```
+####BAI THUC  HANH SO 8
+```c
+
+```
