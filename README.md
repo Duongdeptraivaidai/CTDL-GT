@@ -798,7 +798,8 @@ int main() {
 
 
 ```
-#BAI THUC HANH SO 9
+# BAI THUC HANH SO 9
+#### 9.1
 ```c
 #include<iostream>
 #include<iomanip>
