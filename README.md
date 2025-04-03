@@ -423,7 +423,7 @@ int main() {
 
 }
 ```
-#### BAI THUC HANH SO 6
+# BAI THUC HANH SO 6
 ```c
 #include<iostream>
 using namespace std;
@@ -585,7 +585,7 @@ int main() {
 
 }
 ```
-#### BAI THUC  HANH SO 8
+# BAI THUC  HANH SO 8
 ```c
 #include<iostream>
 #include<string>
@@ -797,4 +797,75 @@ int main() {
 }
 
 
+```
+#BAI THUC HANH SO 9
+```c
+#include<iostream>
+#include<iomanip>
+#include<stack>
+using namespace std;
+stack<int>st;
+
+struct NODE {
+	NODE* pNext;
+	int data;
+};
+
+NODE* makeNODE(int x) {
+	NODE* newNODE = new NODE;
+	newNODE->data = x;
+	newNODE->pNext = NULL;
+	return newNODE;
+}
+
+void push(NODE** top, int x) {
+	NODE* newNODE = makeNODE(x);
+	newNODE->pNext = *top;
+	*top = newNODE;
+}
+
+void pop(NODE** top) {
+	if ((*top) != NULL) {
+		NODE* temp = *top;
+		*top = (*top)->pNext;
+		delete temp;
+	}
+}
+
+bool isEmpty(NODE* top) {
+	return top == NULL;
+}
+
+int Top(NODE* top) {
+	if (top != NULL)return top->data;
+	else return -1;
+}
+
+int size(NODE* top) {
+	int count = 0;
+	while (top) {
+		++count;
+		top = top->pNext;
+	}
+	return count;
+}
+
+int main() {
+	NODE* top = NULL;
+	int n; cin >> n;
+	while (n > 0) {
+		push(&top, n % 2);
+		n /= 2;
+	}
+	
+
+	while (!isEmpty(top)) { 
+		cout << Top(top);
+		pop(&top);
+	}
+	cout << endl;
+
+		return 0;
+	
+}
 ```
