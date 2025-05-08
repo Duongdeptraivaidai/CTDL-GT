@@ -870,3 +870,68 @@ int main() {
 	
 }
 ```
+# Tree
+```c
+#include<iostream>
+using namespace std;
+
+typedef struct Tnode {
+	int Key;
+	Tnode* left, * right;
+};
+typedef Tnode* Tree;
+
+
+int InsertNode(Tree& T, int x) {
+	if (T != NULL) {
+		if (T->Key > x)return InsertNode(T->left, x);
+		else return InsertNode(T->right, x);
+	}
+	T = new Tnode;
+	if (T == NULL)return -1;
+	T->Key = x;
+	T->left = T->right = NULL;
+	return 1;
+}
+
+void NLR(Tree T) {
+	if (T != NULL) {
+		cout << T->Key << " ";
+		NLR(T->left);
+		NLR(T->right);
+	}
+}
+
+void LNR(Tree T) {
+	if (T != NULL) {
+		LNR(T->left);
+		cout << T->Key << " ";
+		LNR(T->right);
+	}
+}
+
+void LRN(Tree T) {
+	if (T != NULL) {
+		LRN(T->left);
+		LRN(T->right);
+		cout << T->Key << " ";
+	}
+}
+
+
+int main() {
+	Tree T = NULL;
+	int x;
+	cout << "Nhap gia tri nut, nhap 0 de dung: "; cin >> x;
+	do {
+		InsertNode(T, x);
+		cout << "Nhap gia tri nut, nhap 0 de dung: "; cin >> x;
+	} while (x != 0);
+	cout << "\n Duyet cay theo thu tu NLR: "; NLR(T);
+	cout << endl;
+	cout << "\n Duyet cay theo thu tu LNR: "; LNR(T);
+	cout << endl;
+	cout << "\n Duyet cay theo thu tu LRN: "; LRN(T);
+	return 0;
+}
+```
